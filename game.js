@@ -1,6 +1,7 @@
 let game;
 let gameOptions = {
     gemSize: 100,
+    gemWidth: 108,
     swapSpeed: 200,
     fallSpeed: 100,
     destroySpeed: 200,
@@ -26,10 +27,11 @@ class playGame extends Phaser.Scene{
         super("PlayGame");
     }
     preload(){
-        this.load.spritesheet("gems", "assets/sprites/gems.png", {
-            frameWidth: gameOptions.gemSize,
-            frameHeight: gameOptions.gemSize
+        this.load.spritesheet("gems", "assets/sprites/gems2.png", {
+            frameWidth: gameOptions.gemWidth,
+            frameHeight: gameOptions.gemSize,
         });
+
     }
     create(){
         this.match3 = new Match3({
