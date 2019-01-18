@@ -15,7 +15,7 @@ window.onload = function() {
         width: 900,
         height: 900,
         scene: playGame,
-        backgroundColor: 0x222222
+        backgroundColor: 0xffffff
     }
     game = new Phaser.Game(gameConfig);
     window.focus()
