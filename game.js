@@ -1,6 +1,6 @@
 let game;
 let gameOptions = {
-    gemSize: 100,
+    gemHeight: 100,
     gemWidth: 108,
     swapSpeed: 200,
     fallSpeed: 100,
@@ -29,7 +29,7 @@ class playGame extends Phaser.Scene{
     preload(){
         this.load.spritesheet("gems", "assets/sprites/gems2.png", {
             frameWidth: gameOptions.gemWidth,
-            frameHeight: gameOptions.gemSize,
+            frameHeight: gameOptions.gemHeight,
         });
 
     }
@@ -49,8 +49,8 @@ class playGame extends Phaser.Scene{
         this.poolArray = [];
         for(let i = 0; i < this.match3.getRows(); i ++){
             for(let j = 0; j < this.match3.getColumns(); j ++){
-                let gemX = gameOptions.boardOffset.x + gameOptions.gemSize * j + gameOptions.gemSize / 2;
-                let gemY = gameOptions.boardOffset.y + gameOptions.gemSize * i + gameOptions.gemSize / 2
+                let gemX = gameOptions.boardOffset.x + gameOptions.gemHeight * j + gameOptions.gemHeight / 2;
+                let gemY = gameOptions.boardOffset.y + gameOptions.gemHeight * i + gameOptions.gemHeight / 2
                 let gem = this.add.sprite(gemX, gemY, "gems", this.match3.valueAt(i, j));
                 this.match3.setCustomData(i, j, gem);
             }
@@ -59,8 +59,8 @@ class playGame extends Phaser.Scene{
     gemSelect(pointer){
         if(this.canPick){
             this.dragging = true;
-            let row = Math.floor((pointer.y - gameOptions.boardOffset.y) / gameOptions.gemSize);
-            let col = Math.floor((pointer.x - gameOptions.boardOffset.x) / gameOptions.gemSize);
+            let row = Math.floor((pointer.y - gameOptions.boardOffset.y) / gameOptions.gemHeight);
+            let col = Math.floor((pointer.x - gameOptions.boardOffset.x) / gameOptions.gemHeight);
             if(this.match3.validPick(row, col)){
                 let selectedGem = this.match3.getSelectedItem();
                 if(!selectedGem){
@@ -96,8 +96,8 @@ class playGame extends Phaser.Scene{
         movements.forEach(function(movement){
             this.tweens.add({
                 targets: this.match3.customDataOf(movement.row, movement.column),
-                x: this.match3.customDataOf(movement.row, movement.column).x + gameOptions.gemSize * movement.deltaColumn,
-                y: this.match3.customDataOf(movement.row, movement.column).y + gameOptions.gemSize * movement.deltaRow,
+                x: this.match3.customDataOf(movement.row, movement.column).x + gameOptions.gemHeight * movement.deltaColumn,
+                y: this.match3.customDataOf(movement.row, movement.column).y + gameOptions.gemHeight * movement.deltaRow,
                 duration: gameOptions.swapSpeed,
                 callbackScope: this,
                 onComplete: function(){
@@ -148,7 +148,7 @@ class playGame extends Phaser.Scene{
             moved ++;
             this.tweens.add({
                 targets: this.match3.customDataOf(movement.row, movement.column),
-                y: this.match3.customDataOf(movement.row, movement.column).y + movement.deltaRow * gameOptions.gemSize,
+                y: this.match3.customDataOf(movement.row, movement.column).y + movement.deltaRow * gameOptions.gemHeight,
                 duration: gameOptions.fallSpeed * Math.abs(movement.deltaRow),
                 callbackScope: this,
                 onComplete: function(){
@@ -164,13 +164,13 @@ class playGame extends Phaser.Scene{
             moved ++;
             let sprite = this.poolArray.pop();
             sprite.alpha = 1;
-            sprite.y = gameOptions.boardOffset.y + gameOptions.gemSize * (movement.row - movement.deltaRow + 1) - gameOptions.gemSize / 2;
-            sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
+            sprite.y = gameOptions.boardOffset.y + gameOptions.gemHeight * (movement.row - movement.deltaRow + 1) - gameOptions.gemHeight / 2;
+            sprite.x = gameOptions.boardOffset.x + gameOptions.gemHeight * movement.column + gameOptions.gemHeight / 2,
             sprite.setFrame(this.match3.valueAt(movement.row, movement.column));
             this.match3.setCustomData(movement.row, movement.column, sprite);
             this.tweens.add({
                 targets: sprite,
-                y: gameOptions.boardOffset.y + gameOptions.gemSize * movement.row + gameOptions.gemSize / 2,
+                y: gameOptions.boardOffset.y + gameOptions.gemHeight * movement.row + gameOptions.gemHeight / 2,
                 duration: gameOptions.fallSpeed * movement.deltaRow,
                 callbackScope: this,
                 onComplete: function(){
