@@ -1,5 +1,8 @@
 let game;
+//add score to the game
 let scoreText;
+let score = 0;
+
 let gameOptions = {
     gemHeight: 100,
     gemWidth: 108,
@@ -13,8 +16,8 @@ let gameOptions = {
 }
 window.onload = function() {
     let gameConfig = {
-        width: 900,
-        height: 1100,
+        width: 1000,
+        height: 1200,
         scene: playGame,
         backgroundColor: 0xffffff
     }
@@ -36,8 +39,8 @@ class playGame extends Phaser.Scene{
     }
     create(){
         this.match3 = new Match3({
-            rows: 8,
-            columns: 8,
+            rows: 10,
+            columns: 10,
             items: 6
         });
         this.match3.generateField();
@@ -47,12 +50,15 @@ class playGame extends Phaser.Scene{
         this.input.on("pointerdown", this.gemSelect, this);
 
         //test adding scoreboard
-        scoreText = this.add.text(100, 100, 'score: 0', {
+        scoreText = this.add.text(100, 1050, 'score: 0', {
             fontSize: '100px',
             fill: '#000',
           });
 
-        scoreText.setText('Score: 100');
+
+    }
+    update(){
+        scoreText.setText('Score: ' + score);
     }
     drawField(){
         this.poolArray = [];
@@ -148,6 +154,12 @@ class playGame extends Phaser.Scene{
                 }
             });
         }.bind(this));
+        //handle score
+        if(destroyed === 3){
+            score += 100;
+        }else{
+            score= score + 100 + (destroyed-3)*50;
+        }
     }
     makeGemsFall(){
         let moved = 0;
