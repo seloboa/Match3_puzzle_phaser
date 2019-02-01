@@ -1,4 +1,5 @@
 let game;
+let scoreText;
 let gameOptions = {
     gemHeight: 100,
     gemWidth: 108,
@@ -13,7 +14,7 @@ let gameOptions = {
 window.onload = function() {
     let gameConfig = {
         width: 900,
-        height: 900,
+        height: 1100,
         scene: playGame,
         backgroundColor: 0xffffff
     }
@@ -36,7 +37,7 @@ class playGame extends Phaser.Scene{
     create(){
         this.match3 = new Match3({
             rows: 8,
-            columns: 7,
+            columns: 8,
             items: 6
         });
         this.match3.generateField();
@@ -44,6 +45,14 @@ class playGame extends Phaser.Scene{
         this.dragging = false;
         this.drawField();
         this.input.on("pointerdown", this.gemSelect, this);
+
+        //test adding scoreboard
+        scoreText = this.add.text(100, 100, 'score: 0', {
+            fontSize: '100px',
+            fill: '#000',
+          });
+
+        scoreText.setText('Score: 100');
     }
     drawField(){
         this.poolArray = [];
@@ -441,3 +450,5 @@ function resize() {
         canvas.style.height = windowHeight + "px";
     }
 }
+
+
