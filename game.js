@@ -58,17 +58,21 @@ class playGame extends Phaser.Scene {
 
     //test adding moves left
     moveLeft = this.add.text(100, 1150, 'Moves Left: 0', {
-        fontSize: '100px',
-        fill: '#000',
-      });
+      fontSize: '100px',
+      fill: '#000',
+    });
 
     //set move at the beginning of game randomly
-    move = Math.floor(Math.random()*50);
+    move = Math.floor(Math.random() * 50);
   }
 
   update() {
     scoreText.setText('Score: ' + score);
-    moveLeft.setText('Moves Left: '+move);
+    moveLeft.setText('Moves Left: ' + move);
+    if(move === 0){
+        gameOver = true;
+        moveLeft.backgroundColor = 0xff0000;
+    }
   }
 
   drawField() {
@@ -209,7 +213,7 @@ class playGame extends Phaser.Scene {
     } else if (destroyed === 4) {
       score += 200;
     } else {
-      score += (200 + (destroyed - 4)*75);
+      score += 200 + (destroyed - 4) * 75;
     }
   }
   makeGemsFall() {
