@@ -69,7 +69,7 @@ class playGame extends Phaser.Scene {
   update() {
     scoreText.setText('Score: ' + score);
     moveLeft.setText('Moves Left: ' + move);
-    if(move === 0){
+    if(move <= 0){
         gameOver = true;
         moveLeft.backgroundColor = 0xff0000;
     }
