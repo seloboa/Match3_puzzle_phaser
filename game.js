@@ -33,7 +33,7 @@ class playGame extends Phaser.Scene {
     super('PlayGame');
   }
   preload() {
-    this.load.spritesheet('gems', 'assets/sprites/gems2.png', {
+    this.load.spritesheet('gems', './assets/sprites/gems2.png', {
       frameWidth: gameOptions.gemWidth,
       frameHeight: gameOptions.gemHeight,
     });
@@ -68,10 +68,12 @@ class playGame extends Phaser.Scene {
 
   update() {
     scoreText.setText('Score: ' + score);
-    moveLeft.setText('Moves Left: ' + move);
     if(move <= 0){
+        moveLeft.setText('Moves Left: ' + move);
         gameOver = true;
         moveLeft.backgroundColor = 0xff0000;
+    }else{
+      moveLeft.setText('Moves Left: ' + move);
     }
   }
 
