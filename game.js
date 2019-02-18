@@ -73,7 +73,7 @@ class playGame extends Phaser.Scene {
     if (move <= 0) {
 
       moveLeft.backgroundColor = 0xff0000;
-      // gameOver = true;
+      gameOver = true;
     }
   }
 
