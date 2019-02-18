@@ -175,12 +175,12 @@ class playGame extends Phaser.Scene {
                 if (swapBack) {
                   this.swapGems(row, col, row2, col2, false);
                 } else {
-                  --move;
                   this.canPick = true;
+                  --move;
                 }
               } else {
-                --move;
                 this.handleMatches();
+                --move;
               }
             }
           },
