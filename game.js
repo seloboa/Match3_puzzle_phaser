@@ -28,6 +28,7 @@ window.onload = function() {
   resize();
   window.addEventListener('resize', resize, false);
 };
+
 class playGame extends Phaser.Scene {
   constructor() {
     super('PlayGame');
@@ -63,17 +64,16 @@ class playGame extends Phaser.Scene {
     });
 
     //set move at the beginning of game randomly
-    move = Math.floor(Math.random() * 50);
+    move = Math.floor(Math.random() * 5);
   }
 
   update() {
     scoreText.setText('Score: ' + score);
-    if(move <= 0){
-        moveLeft.setText('Moves Left: ' + move);
-        gameOver = true;
-        moveLeft.backgroundColor = 0xff0000;
-    }else{
-      moveLeft.setText('Moves Left: ' + move);
+    moveLeft.setText('Moves Left: ' + move);
+    if (move <= 0) {
+
+      moveLeft.backgroundColor = 0xff0000;
+      // gameOver = true;
     }
   }
 
@@ -99,6 +99,7 @@ class playGame extends Phaser.Scene {
       }
     }
   }
+
   gemSelect(pointer) {
     if (this.canPick) {
       this.dragging = true;
@@ -152,6 +153,7 @@ class playGame extends Phaser.Scene {
       }
     }
   }
+
   swapGems(row, col, row2, col2, swapBack) {
     let movements = this.match3.swapItems(row, col, row2, col2);
     this.swappingGems = 2;
